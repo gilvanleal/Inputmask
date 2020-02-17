@@ -10,9 +10,9 @@
  */
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
-		define(["inputmask.dependencyLib", "inputmask"], factory);
+		define(["./dependencyLibs/inputmask.dependencyLib", "./inputmask"], factory);
 	} else if (typeof exports === "object") {
-		module.exports = factory(require("./inputmask.dependencyLib"), require("./inputmask"));
+		module.exports = factory(require("./dependencyLibs/inputmask.dependencyLib"), require("./inputmask"));
 	} else {
 		factory(window.dependencyLib || jQuery, window.Inputmask);
 	}
@@ -29,7 +29,7 @@
 
 	var analyseMaskBase = Inputmask.prototype.analyseMask;
 
-	Inputmask.prototype.analyseMask = function (mask, opts) {
+	Inputmask.prototype.analyseMask = function (mask, regexMask, opts) {
 		var maskGroups = {};
 
 		function reduceVariations(masks, previousVariation, previousmaskGroup) {
@@ -84,7 +84,7 @@
 			mask = mask.replace(/9/g, "\\9");
 		}
 		// console.log(mask);
-		var mt = analyseMaskBase.call(this, mask, opts);
+		var mt = analyseMaskBase.call(this, mask, regexMask,opts);
 		return mt;
 	};
 	Inputmask.extendAliases({
@@ -109,8 +109,8 @@
 				return processedValue;
 			},
 			onUnMask: function (maskedValue, unmaskedValue, opts) {
-				//implement me
-				return unmaskedValue;
+				var unmasked = maskedValue.replace(/[()#-]/g, "");
+				return unmasked;
 			},
 			inputmode: "tel",
 		}

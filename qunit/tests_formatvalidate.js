@@ -1,15 +1,4 @@
-define([
-	"qunit",
-	"inputmask.dependencyLib",
-	"inputmask",
-	"../dist/inputmask/inputmask.date.extensions",
-	"../dist/inputmask/inputmask.extensions",
-	"../dist/inputmask/inputmask.numeric.extensions",
-	"../dist/inputmask/inputmask.phone.extensions",
-	"../dist/inputmask/inputmask.regex.extensions",
-	"prototypeExtensions",
-	"simulator"
-], function(qunit, $, Inputmask) {
+export default function(qunit, $, Inputmask) {
 	qunit.module("Value formatting");
 	qunit.test("Inputmask.format(\"2331973\", { alias: \"date\"})", function(assert) {
 		var formattedValue = Inputmask.format("2331973", {
@@ -141,7 +130,8 @@ define([
 			alias: "decimal",
 			radixPoint: ".",
 			groupSeparator: ",",
-			groupSize: 3
+			groupSize: 3,
+			autoGroup: true
 		});
 		assert.equal(isValid, true, "Result " + isValid);
 	});
@@ -168,7 +158,8 @@ define([
 			alias: "decimal",
 			radixPoint: ".",
 			groupSeparator: ",",
-			groupSize: 3
+			groupSize: 3,
+			autoGroup: true
 		});
 		assert.equal(isValid, true, "Result " + isValid);
 	});
@@ -234,4 +225,4 @@ define([
 	});
 
 
-});
+};
